@@ -1,0 +1,44 @@
+/* ─── Tipografía ─────────────────────────────────────────────── */
+/* Fuerza Playfair Display en todos los títulos */
+h1,
+h2 {
+    font-family: 'Playfair Display', serif;
+}
+
+/* ─── Inputs ─────────────────────────────────────────────────── */
+/* Línea inferior borgoña al hacer foco en cualquier input */
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus {
+    border-bottom: 1.5px solid #3d0011;
+    outline: none;
+}
+
+/* ─── Toggle de contraseña ───────────────────────────────────── */
+/* Botón del ojo: sin fondo, cursor pointer, color neutro */
+button[type="button"] {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #897173;
+    transition: color 0.2s;
+}
+
+/* Cambia a borgoña al pasar el ratón */
+button[type="button"]:hover {
+    color: #3d0011;
+}
+
+/* ─── Botón de submit ────────────────────────────────────────── */
+/* Color borgoña y texto blanco cuando el formulario es válido */
+button[type="submit"]:not(:disabled) {
+    background-color: #630321;
+    color: #ffffff;
+}
+
+/* ─── Animación flecha ───────────────────────────────────────── */
+/* La flecha se desplaza a la derecha al hacer hover sobre el botón */
+button[type="submit"]:not(:disabled):hover .material-symbols-outlined {
+    transform: translateX(4px);
+    transition: transform 0.2s;
+}
