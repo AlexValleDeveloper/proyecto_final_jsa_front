@@ -1,0 +1,167 @@
+<div class="min-h-screen flex items-center justify-center bg-surface py-12 px-4">
+  <div class="w-full max-w-md border border-outline-variant bg-surface-container-lowest">
+    <div class="px-8 py-12 md:px-12">
+      <!-- Logo -->
+      <div class="flex justify-center mb-8">
+        <img src="logo.png" alt="Productos Regionales" class="h-16 w-auto object-contain" />
+      </div>
+
+      <!-- Título -->
+      <div class="text-center mb-10">
+        <h1 class="font-serif text-headline-md text-primary mb-2">Únete a nuestra tradición</h1>
+        <p class="font-body-md text-body-md text-on-surface-variant">
+          Acceda a la selección más exquisita de la gastronomía regional.
+        </p>
+      </div>
+
+      <!-- Formulario -->
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-7">
+        <!-- Email -->
+        <div class="space-y-2">
+          <label
+            for="email"
+            class="block font-label-md text-label-md text-primary uppercase tracking-widest"
+          >
+            Correo electrónico
+          </label>
+          <input
+            id="email"
+            type="email"
+            formControlName="email"
+            placeholder="nombre@ejemplo.com"
+            class="w-full bg-transparent border-b border-outline px-0 py-3 font-body-md text-body-md text-on-surface placeholder-on-surface-variant/30 focus:outline-none focus:border-primary transition-colors"
+          />
+          @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+            <p class="text-error text-label-sm">Introduce un correo válido.</p>
+          }
+        </div>
+
+        <!-- Nombre -->
+        <div class="space-y-2">
+          <label
+            for="name"
+            class="block font-label-md text-label-md text-primary uppercase tracking-widest"
+          >
+            Nombre
+          </label>
+          <input
+            id="name"
+            type="text"
+            formControlName="name"
+            placeholder="Juan Pérez"
+            class="w-full bg-transparent border-b border-outline px-0 py-3 font-body-md text-body-md text-on-surface placeholder-on-surface-variant/30 focus:outline-none focus:border-primary transition-colors"
+          />
+          @if (registerForm.get('name')?.invalid && registerForm.get('name')?.touched) {
+            <p class="text-error text-label-sm">El nombre es obligatorio.</p>
+          }
+        </div>
+
+        <!-- Fecha de nacimiento -->
+        <div class="space-y-2">
+          <label
+            for="birthDate"
+            class="block font-label-md text-label-md text-primary uppercase tracking-widest"
+          >
+            Fecha de nacimiento
+          </label>
+          <input
+            id="birthDate"
+            type="date"
+            formControlName="birthDate"
+            class="w-full bg-transparent border-b border-outline px-0 py-3 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary transition-colors"
+          />
+          @if (registerForm.get('birthDate')?.invalid && registerForm.get('birthDate')?.touched) {
+            <p class="text-error text-label-sm">La fecha de nacimiento es obligatoria.</p>
+          }
+        </div>
+
+        <!-- Contraseña -->
+        <div class="space-y-2">
+          <label
+            for="password"
+            class="block font-label-md text-label-md text-primary uppercase tracking-widest"
+          >
+            Contraseña
+          </label>
+          <div class="relative">
+            <input
+              id="password"
+              [type]="showPassword() ? 'text' : 'password'"
+              formControlName="password"
+              placeholder="••••••••"
+              class="w-full bg-transparent border-b border-outline px-0 py-3 pr-8 font-body-md text-body-md text-on-surface placeholder-on-surface-variant/30 focus:outline-none focus:border-primary transition-colors"
+            />
+            <button
+              type="button"
+              (click)="togglePassword()"
+              [attr.aria-label]="showPassword() ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+              class="absolute right-0 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors"
+            >
+              <span class="material-symbols-outlined text-[20px]">
+                {{ showPassword() ? 'visibility_off' : 'visibility' }}
+              </span>
+            </button>
+          </div>
+          @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+            <p class="text-error text-label-sm">Mínimo 6 caracteres, una mayúscula y un número.</p>
+          }
+        </div>
+
+        <!-- Confirmar contraseña -->
+        <div class="space-y-2">
+          <label
+            for="confirmPassword"
+            class="block font-label-md text-label-md text-primary uppercase tracking-widest"
+          >
+            Confirmar contraseña
+          </label>
+          <div class="relative">
+            <input
+              id="confirmPassword"
+              [type]="showConfirm() ? 'text' : 'password'"
+              formControlName="confirmPassword"
+              placeholder="••••••••"
+              class="w-full bg-transparent border-b border-outline px-0 py-3 pr-8 font-body-md text-body-md text-on-surface placeholder-on-surface-variant/30 focus:outline-none focus:border-primary transition-colors"
+            />
+            <button
+              type="button"
+              (click)="toggleConfirm()"
+              [attr.aria-label]="showConfirm() ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+              class="absolute right-0 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors"
+            >
+              <span class="material-symbols-outlined text-[20px]">
+                {{ showConfirm() ? 'visibility_off' : 'visibility' }}
+              </span>
+            </button>
+          </div>
+          @if (
+            registerForm.errors?.['passwordsMismatch'] &&
+            registerForm.get('confirmPassword')?.touched
+          ) {
+            <p class="text-error text-label-sm">Las contraseñas no coinciden.</p>
+          }
+        </div>
+
+        <!-- Botón -->
+        <div class="pt-4">
+          <button
+            type="submit"
+            [disabled]="registerForm.invalid"
+            class="w-full bg-primary-container text-on-primary font-label-md text-label-md py-4 px-6 flex items-center justify-center gap-2 hover:bg-primary transition-colors duration-300 active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed"
+          >
+            Crear cuenta
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Link al login -->
+      <p class="mt-10 text-center font-body-md text-body-md text-on-surface-variant">
+        ¿Ya tienes cuenta?
+        <a routerLink="/login" class="text-primary font-bold hover:underline ml-1">
+          Inicia sesión aquí
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
