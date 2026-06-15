@@ -36,11 +36,11 @@ export const routes: Routes = [
 
   // ==== RUTAS PRIVADAS — USUARIO ====
   // Lazy loading + authGuard — solo accesibles con token válido
-  // {
-  //   path: 'cart',
-  //   canActivate: [authGuard],
-  //   loadComponent: () => import('./pages/cart/cart').then((m) => m.Cart),
-  // },
+  {
+    path: 'cart',
+    canActivate: [authGuard],
+    loadComponent: () => import('./pages/cart/cart').then((m) => m.Cart),
+  },
   // {
   //   path: 'profile',
   //   canActivate: [authGuard],

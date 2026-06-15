@@ -1,19 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
-import { Cart } from '../interfaces/cart';
+import { ICart } from '../interfaces/icart';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Carts {
   private httpClient = inject(HttpClient);
-  private apiUrl: string = 'http://localhost:5000/api/cart';
+  private apiUrl: string = 'http://localhost:3000/api/cart';
 
   // ==== PETICIONES ====
   // Petición para recoger el carrito con lo que tenga dentro.
   getCart() {
-    return firstValueFrom(this.httpClient.get<Cart>(this.apiUrl));
+    return firstValueFrom(this.httpClient.get<ICart>(this.apiUrl));
   }
 
   // Petición para añadir un producto al carrito. Según está configurado el backend si ya esta en el carrito se suma la cantidad, sino esta simplemente lo añade.

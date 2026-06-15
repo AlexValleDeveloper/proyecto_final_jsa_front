@@ -1,7 +1,7 @@
 // Aquí están las dos interfaces necesarias para tipar todo lo del carrito.
 
 // cart.ts
-export interface CartItem {
+export interface ICartItem {
   itemId: number;
   quantity: number;
   name: string;
@@ -9,8 +9,8 @@ export interface CartItem {
   image: string;
 }
 
-export interface Cart {
+export interface ICart {
   msj: string;
-  cartItems: CartItem[];
+  cartItems: ICartItem[];
   totalPrice: number;
 }

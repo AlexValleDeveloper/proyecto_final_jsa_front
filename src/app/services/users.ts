@@ -8,7 +8,7 @@ import { firstValueFrom } from 'rxjs';
 })
 export class Users {
   private httpClient = inject(HttpClient);
-  private apiUrl: string = 'http://localhost:5000/api';
+  private apiUrl: string = 'http://localhost:3000/api';
 
   // ==== PETICIONES PÚBLICAS ====
   // Petición para registro de nuevo usuario.
