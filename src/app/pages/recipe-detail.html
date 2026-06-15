@@ -1,0 +1,85 @@
+@if (loading) {
+
+<div class="state-container">
+
+    <div class="loading-card">
+
+        <h2>Cargando receta...</h2>
+
+        <p>
+            Estamos obteniendo toda la información de la receta.
+        </p>
+
+    </div>
+
+</div>
+
+} @else if (error) {
+
+<div class="state-container">
+
+    <div class="error-card">
+
+        <h2>Error</h2>
+
+        <p>{{ error }}</p>
+
+    </div>
+
+</div>
+
+} @else if (recipe) {
+
+<div class="page-container">
+
+    <div class="recipe-header">
+
+        <h1>{{ recipe.name }}</h1>
+
+        <p class="subtitle">
+            Información detallada de la receta seleccionada.
+        </p>
+
+    </div>
+
+    <div class="details-grid">
+
+        <div class="detail-card">
+
+            <span class="label">
+                Categoría
+            </span>
+
+            <span class="value">
+                {{ recipe.categoryId }}
+            </span>
+
+        </div>
+
+        <div class="detail-card">
+
+            <span class="label">
+                Comunidad
+            </span>
+
+            <span class="value">
+                {{ recipe.communityId }}
+            </span>
+
+        </div>
+
+    </div>
+
+    <div class="content-card">
+
+        <h2>Instrucciones de preparación</h2>
+
+        <p class="instructions">
+            {{ recipe.instructions }}
+        </p>
+
+    </div>
+
+</div>
+
+}
