@@ -1,0 +1,41 @@
+<section class="page">
+
+  <h1>Productos</h1>
+
+  <div class="filters">
+
+    <input
+      type="text"
+      placeholder="Buscar producto"
+    >
+
+    <select>
+      <option>Todas las categorías</option>
+      <option>Bebidas</option>
+      <option>Productos</option>
+      <option>Platos típicos</option>
+    </select>
+
+    <input
+      type="number"
+      placeholder="Precio mínimo"
+    >
+
+    <input
+      type="number"
+      placeholder="Precio máximo"
+    >
+
+  </div>
+
+  <div class="products-grid">
+    @for (item of items(); track item.id) {
+      <article class="product-card">
+        <h3>{{ item.name }}</h3>
+        <p>Stock: {{ item.stock }}</p>
+        <strong>{{ item.price }} €</strong>
+      </article>
+    }
+  </div>
+
+</section>
