@@ -26,13 +26,6 @@ export const routes: Routes = [
   { path: 'login', component: Login },
   { path: 'register', component: Register },
 
-
-  { path: 'communities', component: Communities },
-  { path: 'categories', component: Categories },
-  { path: 'items', component: Items },
-  { path: 'orders', component: Orders },
-
-
   // {
   //   path: 'items/:id',
   //   loadComponent: () =>
