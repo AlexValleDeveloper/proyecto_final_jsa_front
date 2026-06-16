@@ -1,1 +1,263 @@
-<p>admin-dashboard works!</p>
+<div class="flex min-h-screen bg-surface">
+  <!-- ═══════════════════════════════════════════
+       SIDEBAR — navegación por pestañas
+  ═══════════════════════════════════════════ -->
+  <aside
+    class="w-56 border-r border-outline-variant bg-surface-container-lowest flex flex-col gap-1 p-4 sticky top-0 h-screen"
+  >
+    <div class="mb-8">
+      <p class="font-serif text-headline-sm text-primary">Productos Regionales</p>
+      <p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mt-1">
+        Panel de control
+      </p>
+    </div>
+
+    <button
+      (click)="pestania.set('usuarios')"
+      [class.bg-surface-container]="pestania() === 'usuarios'"
+      [class.text-primary]="pestania() === 'usuarios'"
+      class="flex items-center gap-3 px-4 py-3 font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors text-left"
+    >
+      <span class="material-symbols-outlined text-[20px]">group</span>
+      Usuarios
+    </button>
+
+    <button
+      (click)="pestania.set('productos')"
+      [class.bg-surface-container]="pestania() === 'productos'"
+      [class.text-primary]="pestania() === 'productos'"
+      class="flex items-center gap-3 px-4 py-3 font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors text-left"
+    >
+      <span class="material-symbols-outlined text-[20px]">inventory_2</span>
+      Productos
+    </button>
+
+    <button
+      (click)="pestania.set('pedidos')"
+      [class.bg-surface-container]="pestania() === 'pedidos'"
+      [class.text-primary]="pestania() === 'pedidos'"
+      class="flex items-center gap-3 px-4 py-3 font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors text-left"
+    >
+      <span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+      Pedidos
+    </button>
+
+    <button
+      (click)="pestania.set('recetas')"
+      [class.bg-surface-container]="pestania() === 'recetas'"
+      [class.text-primary]="pestania() === 'recetas'"
+      class="flex items-center gap-3 px-4 py-3 font-label-md text-label-md text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors text-left"
+    >
+      <span class="material-symbols-outlined text-[20px]">menu_book</span>
+      Recetas
+    </button>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════
+       CONTENIDO PRINCIPAL
+  ═══════════════════════════════════════════ -->
+  <main class="flex-grow p-12">
+    @switch (pestania()) {
+      <!-- ═══════════════════════════════════════════
+           PESTAÑA USUARIOS — Alex
+           Endpoints: GET /admin/users?validated=
+                      PATCH /admin/users/validate/:id
+           Service: usersService
+      ═══════════════════════════════════════════ -->
+      @case ('usuarios') {
+        <div>
+          <h1 class="font-serif text-headline-md text-primary mb-2">Gestión de Usuarios</h1>
+          <p class="font-body-md text-on-surface-variant mb-8">
+            Administre los perfiles de usuario y valide los accesos a la plataforma.
+          </p>
+
+          <!-- Filtros -->
+          <div class="flex gap-3 mb-8">
+            <button
+              (click)="setFilter(undefined)"
+              [class.bg-primary-container]="activeFilter() === undefined"
+              [class.text-on-primary]="activeFilter() === undefined"
+              [class.border-primary-container]="activeFilter() === undefined"
+              class="px-4 py-2 border border-outline font-label-md text-label-md text-on-surface-variant hover:border-primary hover:text-primary transition-colors"
+            >
+              Todos
+            </button>
+            <button
+              (click)="setFilter(0)"
+              [class.bg-primary-container]="activeFilter() === 0"
+              [class.text-on-primary]="activeFilter() === 0"
+              [class.border-primary-container]="activeFilter() === 0"
+              class="px-4 py-2 border border-outline font-label-md text-label-md text-on-surface-variant hover:border-primary hover:text-primary transition-colors"
+            >
+              Pendientes
+            </button>
+            <button
+              (click)="setFilter(1)"
+              [class.bg-primary-container]="activeFilter() === 1"
+              [class.text-on-primary]="activeFilter() === 1"
+              [class.border-primary-container]="activeFilter() === 1"
+              class="px-4 py-2 border border-outline font-label-md text-label-md text-on-surface-variant hover:border-primary hover:text-primary transition-colors"
+            >
+              Validados
+            </button>
+          </div>
+
+          <!-- Mensaje de error -->
+          @if (error()) {
+            <div class="mb-6 p-4 border border-error bg-error-container flex items-center gap-3">
+              <span class="material-symbols-outlined text-error">warning</span>
+              <p class="font-body-md text-on-error-container">{{ error() }}</p>
+            </div>
+          }
+
+          <!-- Tabla de usuarios -->
+          <div class="border border-outline-variant bg-surface-container-lowest">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-outline-variant bg-surface-container">
+                  <th
+                    class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-widest"
+                  >
+                    Usuario
+                  </th>
+                  <th
+                    class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-widest"
+                  >
+                    Email
+                  </th>
+                  <th
+                    class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-widest"
+                  >
+                    Estado
+                  </th>
+                  <th
+                    class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-widest"
+                  >
+                    Baja
+                  </th>
+                  <th
+                    class="px-6 py-4 font-label-md text-label-md text-on-surface-variant uppercase tracking-widest"
+                  >
+                    Acciones
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-outline-variant">
+                @for (user of users(); track user.id) {
+                  <tr class="hover:bg-surface-container-low transition-colors">
+                    <!-- Nombre con iniciales -->
+                    <td class="px-6 py-4">
+                      <div class="flex items-center gap-3">
+                        <div
+                          class="w-9 h-9 rounded-full bg-primary-container flex items-center justify-center flex-shrink-0"
+                        >
+                          <span class="font-label-md text-on-primary text-[12px]">
+                            {{ user.name.charAt(0).toUpperCase() }}
+                          </span>
+                        </div>
+                        <span class="font-body-md text-on-surface">{{ user.name }}</span>
+                      </div>
+                    </td>
+
+                    <!-- Email -->
+                    <td class="px-6 py-4 font-body-md text-on-surface-variant">
+                      {{ user.email }}
+                    </td>
+
+                    <!-- Estado -->
+                    <td class="px-6 py-4">
+                      @if (user.validated) {
+                        <span
+                          class="inline-flex items-center gap-1 px-3 py-1 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm"
+                        >
+                          <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                          Validado
+                        </span>
+                      } @else {
+                        <span
+                          class="inline-flex items-center gap-1 px-3 py-1 bg-error-container text-on-error-container font-label-sm text-label-sm"
+                        >
+                          <span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                          Pendiente
+                        </span>
+                      }
+                    </td>
+
+                    <!-- Baja -->
+                    <td class="px-6 py-4">
+                      @if (!user.active) {
+                        <span
+                          class="inline-flex items-center gap-1 px-3 py-1 bg-surface-container text-on-surface-variant font-label-sm text-label-sm"
+                        >
+                          <span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+                          Baja
+                        </span>
+                      } @else {
+                        <span class="font-label-sm text-on-surface-variant">—</span>
+                      }
+                    </td>
+
+                    <!-- Acciones -->
+                    <td class="px-6 py-4">
+                      @if (!user.validated) {
+                        <button
+                          (click)="validateUser(user.id)"
+                          class="flex items-center gap-1 px-3 py-2 bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary transition-colors"
+                        >
+                          <span class="material-symbols-outlined text-[16px]">check</span>
+                          Validar
+                        </button>
+                      } @else {
+                        <span class="font-label-sm text-on-surface-variant">—</span>
+                      }
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+
+            <!-- Lista vacía -->
+            @if (users().length === 0) {
+              <div class="py-16 text-center">
+                <span class="material-symbols-outlined text-[48px] text-outline">group_off</span>
+                <p class="font-body-md text-on-surface-variant mt-4">
+                  No hay usuarios que mostrar.
+                </p>
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      <!-- ==========================================
+           PESTAÑA PRODUCTOS — Jesé
+      =========================================== -->
+      @case ('productos') {
+        <!-- Jesé tú código va aquí -->
+      }
+
+      <!-- ═══════════════════════════════════════════
+           PESTAÑA PEDIDOS — Jesé
+           Endpoints: GET /admin/orders
+                      GET /admin/orders/:id
+                      PATCH /admin/orders/:id
+           Service: ordersService
+      ═══════════════════════════════════════════ -->
+      @case ('pedidos') {
+        <!-- Jesé implementa aquí -->
+      }
+
+      <!-- ═══════════════════════════════════════════
+           PESTAÑA RECETAS — Sara
+           Endpoints: GET /recipes
+                      POST /admin/recipes
+                      PATCH /admin/recipes/:id
+                      DELETE /admin/recipes/:id
+           Service: recipesService
+      ═══════════════════════════════════════════ -->
+      @case ('recetas') {
+        <!-- Sara implementa aquí -->
+      }
+    }
+  </main>
+</div>

@@ -59,12 +59,12 @@ export const routes: Routes = [
 
   // ==== RUTAS PRIVADAS — ADMIN ====
   // Lazy loading + adminGuard — solo accesibles con token de admin
-  // {
-  //   path: 'admin',
-  //   canActivate: [adminGuard],
-  //   loadComponent: () =>
-  //     import('./pages/admin-dashboard/admin-dashboard').then((m) => m.AdminDashboard),
-  // },
+  {
+    path: 'admin',
+    canActivate: [adminGuard],
+    loadComponent: () =>
+      import('./pages/admin-dashboard/admin-dashboard').then((m) => m.AdminDashboard),
+  },
 
   // ==== COMODÍN ====  ← ruta 404 al final
   { path: '**', redirectTo: 'home' },
