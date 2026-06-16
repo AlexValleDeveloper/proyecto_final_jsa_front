@@ -55,7 +55,7 @@ export class Users {
       validated !== undefined
         ? `${this.apiUrl}/admin/users?validated=${validated}`
         : `${this.apiUrl}/admin/users`;
-    return firstValueFrom(this.httpClient.get<User[]>(url));
+    return firstValueFrom(this.httpClient.get<{ msj: string; users: User[] }>(url));
   }
 
   // Petición del admin para validar a un usuario.
