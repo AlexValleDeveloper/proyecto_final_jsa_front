@@ -4,6 +4,11 @@ import { Register } from './pages/register/register';
 import { authGuard } from './guards/auth-guard';
 import { adminGuard } from './guards/admin-guard';
 
+import { Communities } from './pages/communities/communities';
+import { Categories } from './pages/categories/categories';
+import { Items } from './pages/items/items';
+import { Orders } from './pages/orders/orders';
+
 export const routes: Routes = [
   /**
    * app.routes.ts
@@ -20,6 +25,14 @@ export const routes: Routes = [
   { path: 'home', component: Login }, // ← temporal hasta que exista HomeComponent
   { path: 'login', component: Login },
   { path: 'register', component: Register },
+
+
+  { path: 'communities', component: Communities },
+  { path: 'categories', component: Categories },
+  { path: 'items', component: Items },
+  { path: 'orders', component: Orders },
+
+
   // {
   //   path: 'items/:id',
   //   loadComponent: () =>
