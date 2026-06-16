@@ -1,0 +1,13 @@
+/* ─── Tipografía ─────────────────────────────────────────────── */
+/* Fuerza Playfair Display en títulos */
+h1,
+h2,
+h3 {
+    font-family: 'Playfair Display', serif;
+}
+
+/* ─── Inputs de cantidad ─────────────────────────────────────── */
+/* Evita que el botón de cantidad tenga estilos por defecto */
+button:focus {
+    outline: none;
+}
