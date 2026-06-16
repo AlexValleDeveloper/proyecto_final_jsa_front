@@ -27,7 +27,9 @@ export class Users {
   // USER:
   // Petición del usuario para ver su perfil.
   getProfile() {
-    return firstValueFrom(this.httpClient.get<User>(`${this.apiUrl}/users/me`));
+    return firstValueFrom(
+      this.httpClient.get<{ msj: string; user: User }>(`${this.apiUrl}/users/me`),
+    );
   }
 
   //Petición del usuario para modificar su perfil.

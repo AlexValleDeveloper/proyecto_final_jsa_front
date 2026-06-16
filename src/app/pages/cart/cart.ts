@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { ICart } from '../../interfaces/icart';
 import { Users } from '../../services/users';
 import { DecimalPipe } from '@angular/common';
+import { OrdersService } from '../../services/orders';
 
 @Component({
   selector: 'app-cart',
@@ -15,10 +16,13 @@ export class Cart {
   // Inyección de dependencias.
   private cartsService = inject(Carts);
   private usersService = inject(Users);
+  private ordersService = inject(OrdersService);
   private router = inject(Router);
 
   // Signals que necestio.
   cart = signal<ICart | null>(null);
+  orderConfirmed = signal(false);
+  stockError = signal(false);
 
   // Carga el carrito al inicializar el componente con un metodo reutilizable que estableceré ahora.
   async ngOnInit() {
@@ -74,7 +78,8 @@ export class Cart {
   async confirmOrder() {
     try {
       // 1. Obtengo el perfil del usuario para comprobar address y phone
-      const user = await this.usersService.getProfile();
+      const response = await this.usersService.getProfile();
+      const user = response.user;
 
       // 2. Si no tiene address o phone → redirigir a /profile
       if (!user.address || !user.phone) {
@@ -82,10 +87,16 @@ export class Cart {
         return;
       }
 
-      // 3. TODO: llamar a ordersService.createOrder() cuando tengamos el servicio de orders. (PENDIENTE)
-    } catch (error) {
+      // 3. Confirmar pedido.
+      // Llamar a ordersService.createOrder().
+      await this.ordersService.createOrder();
+      this.orderConfirmed.set(true);
+      await this.loadCart();
+    } catch (error: any) {
+      if (error.status === 409) {
+        this.stockError.set(true);
+      }
       console.error(error);
-      // TODO 2: manejar error 409 (stock insuficiente) y mostrar mensaje al usuario (PENDIENTE)
     }
   }
 }
