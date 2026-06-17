@@ -1,0 +1,315 @@
+<div class="w-full min-h-screen bg-surface flex justify-center py-14 px-4">
+  <div class="w-full max-w-xl bg-surface-container-lowest border border-outline-variant">
+    @if (user()) {
+      <!-- ═══════════════════════════════════════════
+           CABECERA — avatar, nombre, badge de validación
+      ═══════════════════════════════════════════ -->
+      <div class="px-10 pt-10 text-center">
+        <div
+          class="w-16 h-16 rounded-full bg-primary-container text-on-primary flex items-center justify-center mx-auto mb-4"
+        >
+          <span class="font-label-md text-[20px]">{{ user()!.name.charAt(0).toUpperCase() }}</span>
+        </div>
+        <h1 class="font-serif text-headline-sm text-primary mb-1">{{ user()!.name }}</h1>
+        <p class="font-body-md text-on-surface-variant text-[14px]">{{ user()!.email }}</p>
+
+        @if (user()!.validated) {
+          <span
+            class="inline-flex items-center gap-1.5 mt-3 px-3 py-1 bg-secondary-container text-on-secondary-container font-label-sm text-label-sm"
+          >
+            <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+            Cuenta validada
+          </span>
+        } @else {
+          <span
+            class="inline-flex items-center gap-1.5 mt-3 px-3 py-1 bg-error-container text-on-error-container font-label-sm text-label-sm"
+          >
+            <span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+            Validación pendiente
+          </span>
+        }
+      </div>
+
+      <!-- ═══════════════════════════════════════════
+           PESTAÑAS
+      ═══════════════════════════════════════════ -->
+      <div class="flex border-b border-outline-variant mt-7">
+        <button
+          (click)="tab.set('ver')"
+          [class.text-primary]="tab() === 'ver'"
+          [class.border-primary-container]="tab() === 'ver'"
+          class="flex-1 py-4 text-center font-label-md text-label-sm uppercase tracking-widest text-on-surface-variant border-b-2 border-transparent hover:text-primary transition-colors"
+        >
+          Ver perfil
+        </button>
+        <button
+          (click)="tab.set('editar')"
+          [class.text-primary]="tab() === 'editar'"
+          [class.border-primary-container]="tab() === 'editar'"
+          class="flex-1 py-4 text-center font-label-md text-label-sm uppercase tracking-widest text-on-surface-variant border-b-2 border-transparent hover:text-primary transition-colors"
+        >
+          Editar
+        </button>
+        <button
+          (click)="tab.set('baja')"
+          [class.text-primary]="tab() === 'baja'"
+          [class.border-primary-container]="tab() === 'baja'"
+          class="flex-1 py-4 text-center font-label-md text-label-sm uppercase tracking-widest text-on-surface-variant border-b-2 border-transparent hover:text-primary transition-colors"
+        >
+          Baja
+        </button>
+      </div>
+
+      <!-- Mensaje de error global -->
+      @if (error()) {
+        <div class="mt-6 mx-10 p-4 border border-error bg-error-container flex items-center gap-3">
+          <span class="material-symbols-outlined text-error">warning</span>
+          <p class="font-body-md text-on-error-container text-[14px]">{{ error() }}</p>
+        </div>
+      }
+
+      <!-- Mensaje de éxito global -->
+      @if (successMessage()) {
+        <div
+          class="mt-6 mx-10 p-4 border border-secondary bg-secondary-container flex items-center gap-3"
+        >
+          <span class="material-symbols-outlined text-secondary">check_circle</span>
+          <p class="font-body-md text-on-secondary-container text-[14px]">{{ successMessage() }}</p>
+        </div>
+      }
+
+      <!-- ═══════════════════════════════════════════
+           PESTAÑA: VER
+      ═══════════════════════════════════════════ -->
+      @if (tab() === 'ver') {
+        <div class="px-10 py-8">
+          <div class="flex justify-between py-3.5 border-b border-surface-container-high">
+            <span class="font-label-md text-label-sm uppercase tracking-widest text-outline"
+              >Nombre</span
+            >
+            <span class="font-body-md text-on-surface">{{ user()!.name }}</span>
+          </div>
+          <div class="flex justify-between py-3.5 border-b border-surface-container-high">
+            <span class="font-label-md text-label-sm uppercase tracking-widest text-outline"
+              >Email</span
+            >
+            <span class="font-body-md text-on-surface">{{ user()!.email }}</span>
+          </div>
+          <div class="flex justify-between py-3.5 border-b border-surface-container-high">
+            <span class="font-label-md text-label-sm uppercase tracking-widest text-outline"
+              >Fecha de nacimiento</span
+            >
+            <span class="font-body-md text-on-surface">{{
+              user()!.birthDate | date: 'dd/MM/yyyy'
+            }}</span>
+          </div>
+          <div class="flex justify-between py-3.5 border-b border-surface-container-high">
+            <span class="font-label-md text-label-sm uppercase tracking-widest text-outline"
+              >Dirección</span
+            >
+            <span class="font-body-md text-on-surface">{{
+              user()!.address || 'Sin especificar'
+            }}</span>
+          </div>
+          <div class="flex justify-between py-3.5">
+            <span class="font-label-md text-label-sm uppercase tracking-widest text-outline"
+              >Teléfono</span
+            >
+            <span class="font-body-md text-on-surface">{{
+              user()!.phone || 'Sin especificar'
+            }}</span>
+          </div>
+
+          <div class="mt-8">
+            <a
+              routerLink="/orders"
+              class="w-full py-3.5 border border-primary text-primary font-label-md text-label-md flex items-center justify-center hover:bg-primary hover:text-on-primary transition-colors duration-300"
+            >
+              Ver mis pedidos
+            </a>
+          </div>
+        </div>
+      }
+
+      <!-- ═══════════════════════════════════════════
+           PESTAÑA: EDITAR
+      ═══════════════════════════════════════════ -->
+      @if (tab() === 'editar') {
+        <form
+          [formGroup]="updateProfileForm"
+          (ngSubmit)="onSubmitUpdate()"
+          class="px-10 py-8 space-y-6"
+        >
+          <div class="space-y-2">
+            <label
+              for="name"
+              class="block font-label-md text-label-sm text-primary uppercase tracking-widest"
+              >Nombre</label
+            >
+            <input
+              id="name"
+              type="text"
+              formControlName="name"
+              class="w-full bg-transparent border-b border-outline px-0 py-2.5 font-body-md text-on-surface focus:outline-none focus:border-primary transition-colors"
+            />
+            @if (updateProfileForm.get('name')?.invalid && updateProfileForm.get('name')?.touched) {
+              <p class="text-error text-label-sm">El nombre es obligatorio.</p>
+            }
+          </div>
+
+          <div class="space-y-2">
+            <label
+              for="email"
+              class="block font-label-md text-label-sm text-primary uppercase tracking-widest"
+              >Email</label
+            >
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              class="w-full bg-transparent border-b border-outline px-0 py-2.5 font-body-md text-on-surface focus:outline-none focus:border-primary transition-colors"
+            />
+            @if (
+              updateProfileForm.get('email')?.invalid && updateProfileForm.get('email')?.touched
+            ) {
+              <p class="text-error text-label-sm">Introduce un correo válido.</p>
+            }
+          </div>
+
+          <div class="space-y-2">
+            <label
+              for="birthDate"
+              class="block font-label-md text-label-sm text-primary uppercase tracking-widest"
+              >Fecha de nacimiento</label
+            >
+            <input
+              id="birthDate"
+              type="date"
+              formControlName="birthDate"
+              class="w-full bg-transparent border-b border-outline px-0 py-2.5 font-body-md text-on-surface focus:outline-none focus:border-primary transition-colors"
+            />
+            @if (
+              updateProfileForm.get('birthDate')?.invalid &&
+              updateProfileForm.get('birthDate')?.touched
+            ) {
+              <p class="text-error text-label-sm">La fecha de nacimiento es obligatoria.</p>
+            }
+          </div>
+
+          <div class="space-y-2">
+            <label
+              for="address"
+              class="block font-label-md text-label-sm text-primary uppercase tracking-widest"
+              >Dirección</label
+            >
+            <input
+              id="address"
+              type="text"
+              formControlName="address"
+              placeholder="Calle, número, ciudad..."
+              class="w-full bg-transparent border-b border-outline px-0 py-2.5 font-body-md text-on-surface placeholder-on-surface-variant/30 focus:outline-none focus:border-primary transition-colors"
+            />
+          </div>
+
+          <div class="space-y-2">
+            <label
+              for="phone"
+              class="block font-label-md text-label-sm text-primary uppercase tracking-widest"
+              >Teléfono</label
+            >
+            <input
+              id="phone"
+              type="tel"
+              formControlName="phone"
+              placeholder="600 123 456"
+              class="w-full bg-transparent border-b border-outline px-0 py-2.5 font-body-md text-on-surface placeholder-on-surface-variant/30 focus:outline-none focus:border-primary transition-colors"
+            />
+          </div>
+
+          <div class="flex gap-4 pt-2">
+            <button
+              type="submit"
+              [disabled]="updateProfileForm.invalid"
+              class="flex-1 py-3.5 bg-primary-container text-on-primary font-label-md text-label-md hover:bg-primary transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              Guardar cambios
+            </button>
+            <button
+              type="button"
+              (click)="tab.set('ver')"
+              class="flex-1 py-3.5 border border-outline text-on-surface-variant font-label-md text-label-md hover:border-primary hover:text-primary transition-colors"
+            >
+              Cancelar
+            </button>
+          </div>
+        </form>
+      }
+
+      <!-- ═══════════════════════════════════════════
+           PESTAÑA: BAJA
+      ═══════════════════════════════════════════ -->
+      @if (tab() === 'baja') {
+        <div class="px-10 py-8">
+          <p class="font-body-md text-on-surface-variant leading-relaxed mb-6">
+            Dar de baja tu cuenta es una <strong class="text-on-surface">baja lógica</strong>: tus
+            datos se conservan por motivos de facturación, pero no podrás volver a iniciar sesión.
+            Si tienes pedidos en curso, contacta con nosotros antes de continuar.
+          </p>
+
+          <button
+            (click)="openDeactivateCheck()"
+            class="w-full py-3.5 bg-error text-on-error font-label-md text-label-md hover:opacity-90 transition-opacity"
+          >
+            Dar de baja mi cuenta
+          </button>
+
+          <button
+            (click)="tab.set('ver')"
+            class="w-full mt-3 py-3.5 border border-outline text-on-surface-variant font-label-md text-label-md hover:border-primary hover:text-primary transition-colors"
+          >
+            Cancelar
+          </button>
+        </div>
+      }
+    } @else {
+      <!-- Cargando perfil -->
+      <div class="py-24 text-center">
+        <p class="font-body-md text-on-surface-variant">Cargando perfil...</p>
+      </div>
+    }
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       MODAL DE DOBLE CONFIRMACIÓN — baja de cuenta
+  ═══════════════════════════════════════════ -->
+  @if (showDeactivateCheck()) {
+    <div class="fixed inset-0 bg-on-surface/40 flex items-center justify-center z-50 px-4">
+      <div
+        class="bg-surface-container-lowest border border-outline-variant max-w-sm w-full p-8 text-center"
+      >
+        <span class="material-symbols-outlined text-error text-[40px]">warning</span>
+        <h2 class="font-serif text-headline-sm text-primary mt-4 mb-2">
+          ¿Seguro que quieres darte de baja?
+        </h2>
+        <p class="font-body-md text-on-surface-variant text-[14px] mb-8">
+          Esta acción cerrará tu sesión y no podrás volver a entrar sin que un administrador
+          reactive tu cuenta.
+        </p>
+        <div class="flex gap-4">
+          <button
+            (click)="cancelDeactivateCheck()"
+            class="flex-1 py-3 border border-outline text-on-surface-variant font-label-md text-label-md hover:border-primary hover:text-primary transition-colors"
+          >
+            Cancelar
+          </button>
+          <button
+            (click)="deactivateProfile()"
+            class="flex-1 py-3 bg-error text-on-error font-label-md text-label-md hover:opacity-90 transition-opacity"
+          >
+            Sí, dar de baja
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

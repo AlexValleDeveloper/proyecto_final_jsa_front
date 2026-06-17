@@ -47,16 +47,16 @@ export const routes: Routes = [
     canActivate: [authGuard],
     loadComponent: () => import('./pages/cart/cart').then((m) => m.Cart),
   },
-  // {
-  //   path: 'profile',
-  //   canActivate: [authGuard],
-  //   loadComponent: () => import('./pages/profile/profile').then((m) => m.Profile),
-  // },
-  // {
-  //   path: 'orders',
-  //   canActivate: [authGuard],
-  //   loadComponent: () => import('./pages/orders/orders').then((m) => m.Orders),
-  // },
+  {
+    path: 'profile',
+    canActivate: [authGuard],
+    loadComponent: () => import('./pages/profile/profile').then((m) => m.Profile),
+  },
+  {
+    path: 'orders',
+    canActivate: [authGuard],
+    loadComponent: () => import('./pages/orders/orders').then((m) => m.Orders),
+  },
   // {
   //   path: 'orders/:id',
   //   canActivate: [authGuard],
