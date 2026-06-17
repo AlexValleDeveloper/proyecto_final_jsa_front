@@ -46,11 +46,11 @@ export const routes: Routes = [
     canActivate: [authGuard],
     loadComponent: () => import('./pages/cart/cart').then((m) => m.Cart),
   },
-  // {
-  //   path: 'profile',
-  //   canActivate: [authGuard],
-  //   loadComponent: () => import('./pages/profile/profile').then((m) => m.Profile),
-  // },
+  {
+    path: 'profile',
+    canActivate: [authGuard],
+    loadComponent: () => import('./pages/profile/profile').then((m) => m.Profile),
+  },
   {
     path: 'orders',
     canActivate: [authGuard],

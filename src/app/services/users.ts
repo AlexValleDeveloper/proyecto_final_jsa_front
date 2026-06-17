@@ -40,12 +40,16 @@ export class Users {
     address?: string;
     phone?: string;
   }) {
-    return firstValueFrom(this.httpClient.patch<User>(`${this.apiUrl}/users/me`, body));
+    return firstValueFrom(
+      this.httpClient.patch<{ msj: string; user: User }>(`${this.apiUrl}/users/me`, body),
+    );
   }
 
   // Petición del usuario para darse de baja.
   deactivateProfile() {
-    return firstValueFrom(this.httpClient.patch(`${this.apiUrl}/users/me/deactivate`, {}));
+    return firstValueFrom(
+      this.httpClient.patch<{ msj: string }>(`${this.apiUrl}/users/me/deactivate`, {}),
+    );
   }
 
   // ADMIN:
