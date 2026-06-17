@@ -4,25 +4,27 @@
 
   <p>Consulta el estado de tus pedidos realizados.</p>
 
+  @if (orders().length === 0) {
+    <p>No tienes pedidos todavía.</p>
+  }
+
   <div class="orders-list">
 
-    <article class="order-card">
-      <h3>Pedido #001</h3>
-      <p>Estado: Pendiente</p>
-      <strong>Total: 25,99 €</strong>
-    </article>
+    @for (order of orders(); track order.id) {
 
-    <article class="order-card">
-      <h3>Pedido #002</h3>
-      <p>Estado: En preparación</p>
-      <strong>Total: 49,99 €</strong>
-    </article>
+      <article class="order-card">
 
-    <article class="order-card">
-      <h3>Pedido #003</h3>
-      <p>Estado: Enviado</p>
-      <strong>Total: 18,50 €</strong>
-    </article>
+        <h3>Pedido #{{ order.id }}</h3>
+
+        <p>Estado: {{ order.status }}</p>
+
+        <p>Realizado el {{ order.orderDate | date:'dd/MM/yyyy' }}</p>
+
+        <strong>Total: {{ order.total }} €</strong>
+
+      </article>
+
+    }
 
   </div>
 

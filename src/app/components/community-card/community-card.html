@@ -1,0 +1,36 @@
+<a
+  [routerLink]="['/community', community().id]"
+  class="block border border-[#dcc0c2] bg-white overflow-hidden hover:scale-[1.02] transition-all duration-300"
+>
+
+ <img
+  [src]="community().image"
+  [alt]="community().name"
+  class="h-80 w-full object-cover"
+/>
+
+  <div class="p-8">
+
+    <p class="text-xs uppercase tracking-[0.2em] text-[#58632b] font-semibold mb-3">
+      Origen
+    </p>
+
+    <h3 class="text-3xl font-bold text-[#1a1c1b] mb-4">
+      {{ community().name }}
+    </h3>
+
+    <p class="text-[#564244] leading-relaxed">
+  {{
+    community().name === 'Islas Canarias'
+      ? 'Vinos volcánicos, quesos artesanos y sabores atlánticos únicos.'
+      : community().name === 'Cataluña'
+      ? 'Productos mediterráneos, cava y gastronomía de vanguardia.'
+      : 'Tradición castellana, embutidos selectos y grandes vinos.'
+  }}
+</p>
+
+    <div class="mt-6 border-t border-[#dcc0c2]"></div>
+
+  </div>
+
+</a>

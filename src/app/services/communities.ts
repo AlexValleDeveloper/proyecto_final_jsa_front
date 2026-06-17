@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
+import { Community } from '../interfaces/community';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +12,9 @@ export class CommunitiesService {
 
   private baseUrl = 'http://localhost:3000/api/communities';
 
-  async getCommunities() {
+  async getCommunities(): Promise<Community[]> {
     return await firstValueFrom(
-      this.http.get(this.baseUrl)
+      this.http.get<Community[]>(this.baseUrl)
     );
   }
 }
