@@ -196,6 +196,16 @@
               <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
             </button>
 
+            @if (missingProfileData()) {
+              <div class="p-4 border border-error bg-error-container flex flex-col gap-2">
+                <p class="font-body-md text-on-error-container">
+                  Necesitas completar tu dirección y teléfono antes de confirmar el pedido.
+                </p>
+                <a routerLink="/profile" class="text-primary font-label-md underline">
+                  Ir a mi perfil
+                </a>
+              </div>
+            }
             <a
               routerLink="/"
               class="w-full py-4 border border-primary text-primary font-label-md flex items-center justify-center hover:bg-primary hover:text-on-primary transition-colors duration-300"
