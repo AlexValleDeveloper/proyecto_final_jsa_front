@@ -1,0 +1,62 @@
+<section
+  class="relative h-[720px] bg-cover bg-center"
+ style="background-image: url('/img_home.png');"
+>
+  <div class="absolute inset-0 bg-black/50"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto h-full px-8 flex items-center">
+    <div class="max-w-xl text-white">
+      <h1 class="font-serif text-5xl md:text-6xl font-bold mb-6">
+        Regiones de Origen
+      </h1>
+
+      <p class="text-lg leading-relaxed mb-10">
+        Cada rincón de España guarda un secreto gastronómico.
+        Viaja a través de los sabores de nuestras comunidades más emblemáticas.
+      </p>
+
+      <div class="flex gap-4">
+        <a
+          href="#comunidades"
+          class="bg-[#630321] text-white px-8 py-4 text-sm font-bold uppercase tracking-wide"
+        >
+          Explorar colección
+        </a>
+
+        <a
+          href="#comunidades"
+          class="border border-white text-white px-8 py-4 text-sm font-bold uppercase tracking-wide"
+        >
+          Nuestra historia
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="comunidades" class="bg-[#faf9f7] py-28">
+  <div class="max-w-7xl mx-auto px-8">
+
+    <div class="max-w-2xl mb-16">
+      <h2 class="font-serif text-4xl font-bold text-[#1a1c1b] mb-6">
+        Regiones de Origen
+      </h2>
+
+      <p class="text-[#564244] leading-relaxed">
+        Cada rincón de España guarda un secreto gastronómico.
+        Viaja a través de los sabores de algunas de nuestras comunidades más emblemáticas.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      @for (community of communities(); track community.id) {
+
+        <app-community-card
+          [community]="community">
+        </app-community-card>
+
+      }
+    </div>
+
+  </div>
+</section>

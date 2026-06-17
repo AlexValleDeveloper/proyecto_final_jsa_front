@@ -4,9 +4,8 @@ import { Register } from './pages/register/register';
 import { authGuard } from './guards/auth-guard';
 import { adminGuard } from './guards/admin-guard';
 
-import { Communities } from './pages/communities/communities';
-import { Categories } from './pages/categories/categories';
-import { Items } from './pages/items/items';
+import { Home } from './pages/home/home';
+
 import { Orders } from './pages/orders/orders';
 
 export const routes: Routes = [
@@ -22,19 +21,19 @@ export const routes: Routes = [
   // ==== RUTAS PÚBLICAS ====
   // Eager loading — se cargan al arrancar la app (son las primeras que ve el usuario)
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: Login }, // ← temporal hasta que exista HomeComponent
+  { path: 'home', component: Home },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
 
-  // {
-  //   path: 'items/:id',
-  //   loadComponent: () =>
-  //     import('./pages/product-detail/product-detail').then((m) => m.ProductDetail),
-  // },
-  // {
-  //   path: 'community/:id',
-  //   loadComponent: () => import('./pages/community/community').then((m) => m.Community),
-  // },
+  {
+    path: 'items/:id',
+    loadComponent: () =>
+      import('./pages/item-detail/item-detail').then((m) => m.ItemDetail),
+  },
+  {
+    path: 'community/:id',
+    loadComponent: () => import('./pages/community/community').then((m) => m.Community),
+  },
   // {
   //   path: 'recipes/:id',
   //   loadComponent: () => import('./pages/recipe-detail/recipe-detail').then((m) => m.RecipeDetail),
