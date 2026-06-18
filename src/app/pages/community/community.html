@@ -1,9 +1,11 @@
 <section class="max-w-7xl mx-auto p-8">
 
   @if (community()) {
-    <h1 class="text-5xl font-bold mb-8">
+
+    <h1 class="inline-block text-5xl font-bold border-l-8 border-[#630321] pl-4 mb-8">
       {{ community()?.name }}
     </h1>
+
   }
 
   <div class="grid md:grid-cols-4 gap-4 mb-10">
@@ -11,13 +13,13 @@
     <input
       type="text"
       placeholder="Buscar producto"
-      class="border p-3"
+      class="border border-[#dcc0c2] p-3 rounded-md bg-white text-[#1a1c1b] outline-none focus:border-[#630321] focus:ring-1 focus:ring-[#630321]"
       #searchInput
       (input)="search.set(searchInput.value); loadItems()"
     >
 
     <select
-      class="border p-3"
+      class="border border-[#dcc0c2] p-3 rounded-md bg-white text-[#1a1c1b] outline-none focus:border-[#630321] focus:ring-1 focus:ring-[#630321]"
       #categorySelect
       (change)="category.set(categorySelect.value ? +categorySelect.value : undefined); loadItems()"
     >
@@ -29,7 +31,7 @@
     <input
       type="number"
       placeholder="Precio mínimo"
-      class="border p-3"
+      class="border border-[#dcc0c2] p-3 rounded-md bg-white text-[#1a1c1b] outline-none focus:border-[#630321] focus:ring-1 focus:ring-[#630321]"
       #minInput
       (input)="minPrice.set(minInput.value ? +minInput.value : undefined); loadItems()"
     >
@@ -37,16 +39,19 @@
     <input
       type="number"
       placeholder="Precio máximo"
-      class="border p-3"
+      class="border border-[#dcc0c2] p-3 rounded-md bg-white text-[#1a1c1b] outline-none focus:border-[#630321] focus:ring-1 focus:ring-[#630321]"
       #maxInput
       (input)="maxPrice.set(maxInput.value ? +maxInput.value : undefined); loadItems()"
     >
 
   </div>
 
-  <p class="mb-6 text-[#564244]">
-    Productos encontrados: {{ items().length }}
-  </p>
+  <p class="mb-8 text-lg font-medium text-[#564244]">
+  <span class="text-[#630321] font-bold">
+    {{ items().length }}
+  </span>
+  productos encontrados
+</p>
 
   @if (items().length > 0) {
 
