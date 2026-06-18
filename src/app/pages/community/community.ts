@@ -10,10 +10,9 @@ import { Item } from '../../interfaces/item';
   selector: 'app-community',
   imports: [ProductCard],
   templateUrl: './community.html',
-  styleUrl: './community.css'
+  styleUrl: './community.css',
 })
 export class Community {
-
   private activatedRoute = inject(ActivatedRoute);
   private communitiesService = inject(CommunitiesService);
   private itemsService = inject(ItemsService);
@@ -29,41 +28,30 @@ export class Community {
   maxPrice = signal<number | undefined>(undefined);
 
   async ngOnInit() {
+    this.activatedRoute.paramMap.subscribe(async (params) => {
+      const id = Number(params.get('id'));
+      this.communityId.set(id);
 
-    const id = Number(
-      this.activatedRoute.snapshot.paramMap.get('id')
-    );
+      const communities = await this.communitiesService.getCommunities();
+      const selectedCommunity = communities.find((community) => community.id === id);
 
-    this.communityId.set(id);
+      if (selectedCommunity) {
+        this.community.set(selectedCommunity);
+      }
 
-    const communities =
-      await this.communitiesService.getCommunities();
-
-    const selectedCommunity = communities.find(
-      community => community.id === id
-    );
-
-    if (selectedCommunity) {
-      this.community.set(selectedCommunity);
-    }
-
-    await this.loadItems();
-
+      await this.loadItems();
+    });
   }
 
   async loadItems() {
-
-    const items =
-      await this.itemsService.getItemsByCommunity(
-        this.communityId(),
-        this.category(),
-        this.search(),
-        this.minPrice(),
-        this.maxPrice()
-      );
+    const items = await this.itemsService.getItemsByCommunity(
+      this.communityId(),
+      this.category(),
+      this.search(),
+      this.minPrice(),
+      this.maxPrice(),
+    );
 
     this.items.set(items);
-
   }
-
 }

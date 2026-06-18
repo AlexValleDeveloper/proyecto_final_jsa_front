@@ -1,0 +1,201 @@
+<header class="bg-surface-container-lowest border-b border-outline-variant sticky top-0 z-50">
+  <nav class="flex justify-between items-center w-full px-12 py-7 gap-8">
+    <!-- Logo + nombre tienda -->
+    <a routerLink="/" class="flex items-center gap-2 lg:gap-4 flex-shrink-0">
+      <img
+        src="logo.png"
+        alt="Productos Regionales"
+        class="h-10 w-10 lg:h-16 lg:w-16 object-contain"
+      />
+      <span class="font-serif text-[16px] lg:text-headline-md text-primary whitespace-nowrap"
+        >Productos Regionales</span
+      >
+    </a>
+
+    <!-- Enlaces centrales — desktop -->
+    <div class="hidden lg:flex items-center gap-10 flex-shrink-0">
+      <a
+        routerLink="/home"
+        routerLinkActive="text-primary font-semibold"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="text-[20px] text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap"
+      >
+        Home
+      </a>
+      <a
+        routerLink="/community/1"
+        routerLinkActive="text-primary font-semibold"
+        class="text-[20px] text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap"
+      >
+        Canarias
+      </a>
+      <a
+        routerLink="/community/2"
+        routerLinkActive="text-primary font-semibold"
+        class="text-[20px] text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap"
+      >
+        Castilla y León
+      </a>
+      <a
+        routerLink="/community/3"
+        routerLinkActive="text-primary font-semibold"
+        class="text-[20px] text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap"
+      >
+        Cataluña
+      </a>
+
+      @if (isAdmin()) {
+        <a
+          routerLink="/admin"
+          routerLinkActive="text-primary font-semibold"
+          class="text-[20px] text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap"
+        >
+          Admin Dashboard
+        </a>
+      }
+    </div>
+
+    <!-- Acciones de la derecha — desktop -->
+    <div class="hidden lg:flex items-center gap-5 flex-shrink-0">
+      @if (!isLoggedIn()) {
+        <a
+          routerLink="/login"
+          class="px-7 py-3.5 border border-primary text-primary text-[18px] hover:bg-primary hover:text-on-primary transition-colors whitespace-nowrap"
+        >
+          Iniciar sesión
+        </a>
+        <a
+          routerLink="/register"
+          class="px-7 py-3.5 bg-primary-container text-on-primary text-[18px] hover:bg-primary transition-colors whitespace-nowrap"
+        >
+          Registrarse
+        </a>
+      }
+
+      @if (isLoggedIn()) {
+        <a
+          routerLink="/cart"
+          class="text-primary hover:text-primary-container transition-colors"
+          aria-label="Carrito"
+        >
+          <span class="material-symbols-outlined text-[32px]">shopping_bag</span>
+        </a>
+        <a
+          routerLink="/profile"
+          class="text-primary hover:text-primary-container transition-colors"
+          aria-label="Perfil"
+        >
+          <span class="material-symbols-outlined text-[32px]">person</span>
+        </a>
+        <button
+          (click)="logout()"
+          class="text-[18px] text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap"
+        >
+          Cerrar sesión
+        </button>
+      }
+    </div>
+
+    <!-- Botón hamburguesa — solo móvil/tablet -->
+    <button
+      (click)="mobileMenuOpen.set(!mobileMenuOpen())"
+      class="lg:hidden text-primary flex-shrink-0"
+      aria-label="Abrir menú"
+    >
+      <span class="material-symbols-outlined text-[32px]">
+        {{ mobileMenuOpen() ? 'close' : 'menu' }}
+      </span>
+    </button>
+  </nav>
+
+  <!-- Menú móvil desplegable -->
+  @if (mobileMenuOpen()) {
+    <div
+      class="lg:hidden border-t border-outline-variant bg-surface-container-lowest px-6 py-6 flex flex-col gap-5"
+    >
+      <a
+        routerLink="/"
+        (click)="mobileMenuOpen.set(false)"
+        routerLinkActive="text-primary font-semibold"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="text-[18px] text-on-surface-variant"
+      >
+        Home
+      </a>
+      <a
+        routerLink="/community/1"
+        (click)="mobileMenuOpen.set(false)"
+        routerLinkActive="text-primary font-semibold"
+        class="text-[18px] text-on-surface-variant"
+      >
+        Canarias
+      </a>
+      <a
+        routerLink="/community/2"
+        (click)="mobileMenuOpen.set(false)"
+        routerLinkActive="text-primary font-semibold"
+        class="text-[18px] text-on-surface-variant"
+      >
+        Castilla y León
+      </a>
+      <a
+        routerLink="/community/3"
+        (click)="mobileMenuOpen.set(false)"
+        routerLinkActive="text-primary font-semibold"
+        class="text-[18px] text-on-surface-variant"
+      >
+        Cataluña
+      </a>
+
+      @if (isAdmin()) {
+        <a
+          routerLink="/admin"
+          (click)="mobileMenuOpen.set(false)"
+          routerLinkActive="text-primary font-semibold"
+          class="text-[18px] text-on-surface-variant"
+        >
+          Admin Dashboard
+        </a>
+      }
+
+      <hr class="border-outline-variant" />
+
+      @if (!isLoggedIn()) {
+        <a
+          routerLink="/login"
+          (click)="mobileMenuOpen.set(false)"
+          class="px-6 py-3 border border-primary text-primary text-[18px] text-center"
+        >
+          Iniciar sesión
+        </a>
+        <a
+          routerLink="/register"
+          (click)="mobileMenuOpen.set(false)"
+          class="px-6 py-3 bg-primary-container text-on-primary text-[18px] text-center"
+        >
+          Registrarse
+        </a>
+      }
+
+      @if (isLoggedIn()) {
+        <a
+          routerLink="/cart"
+          (click)="mobileMenuOpen.set(false)"
+          class="flex items-center gap-3 text-[18px] text-primary"
+        >
+          <span class="material-symbols-outlined">shopping_bag</span> Carrito
+        </a>
+        <a
+          routerLink="/profile"
+          (click)="mobileMenuOpen.set(false)"
+          class="flex items-center gap-3 text-[18px] text-primary"
+        >
+          <span class="material-symbols-outlined">person</span> Perfil
+        </a>
+        <button (click)="logout()" class="text-left text-[18px] text-on-surface-variant">
+          Cerrar sesión
+        </button>
+      }
+    </div>
+  }
+</header>

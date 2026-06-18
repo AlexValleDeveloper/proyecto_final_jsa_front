@@ -28,7 +28,7 @@ export class Profile {
   // Formulario reactivo para modificar el perfil de usuario.
   updateProfileForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl({ value: '', disabled: true }, [Validators.required, Validators.email]),
     birthDate: new FormControl('', [Validators.required]),
     address: new FormControl(''),
     phone: new FormControl(''),
