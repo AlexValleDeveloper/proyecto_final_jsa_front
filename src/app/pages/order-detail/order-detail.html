@@ -10,6 +10,12 @@
 
     <p>Total: {{ order()?.total }} €</p>
 
+  } @else if (errorMessage()) {
+
+    <p class="text-[#630321] font-semibold">
+      {{ errorMessage() }}
+    </p>
+
   } @else {
 
     <p>Cargando pedido...</p>
