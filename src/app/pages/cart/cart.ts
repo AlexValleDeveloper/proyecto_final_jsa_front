@@ -23,6 +23,7 @@ export class Cart {
   cart = signal<ICart | null>(null);
   orderConfirmed = signal(false);
   stockError = signal(false);
+  missingProfileData = signal(false);
 
   // Carga el carrito al inicializar el componente con un metodo reutilizable que estableceré ahora.
   async ngOnInit() {
@@ -83,9 +84,11 @@ export class Cart {
 
       // 2. Si no tiene address o phone → redirigir a /profile
       if (!user.address || !user.phone) {
-        this.router.navigate(['/profile']);
+        this.missingProfileData.set(true);
         return;
       }
+
+      this.missingProfileData.set(false); // Signal
 
       // 3. Confirmar pedido.
       // Llamar a ordersService.createOrder().
