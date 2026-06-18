@@ -1,0 +1,19 @@
+<section class="max-w-5xl mx-auto px-8 py-20">
+
+  @if (order()) {
+
+    <h1 class="text-4xl font-bold mb-4">
+      Pedido #{{ order()?.id }}
+    </h1>
+
+    <p>Estado: {{ order()?.status }}</p>
+
+    <p>Total: {{ order()?.total }} €</p>
+
+  } @else {
+
+    <p>Cargando pedido...</p>
+
+  }
+
+</section>

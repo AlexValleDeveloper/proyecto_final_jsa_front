@@ -56,11 +56,11 @@ export const routes: Routes = [
     canActivate: [authGuard],
     loadComponent: () => import('./pages/orders/orders').then((m) => m.Orders),
   },
-  // {
-  //   path: 'orders/:id',
-  //   canActivate: [authGuard],
-  //   loadComponent: () => import('./pages/order-detail/order-detail').then((m) => m.OrderDetail),
-  // },
+  {
+    path: 'orders/:id',
+    canActivate: [authGuard],
+    loadComponent: () => import('./pages/order-detail/order-detail').then((m) => m.OrderDetail),
+  },
 
   // ==== RUTAS PRIVADAS — ADMIN ====
   // Lazy loading + adminGuard — solo accesibles con token de admin
