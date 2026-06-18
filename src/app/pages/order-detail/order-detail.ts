@@ -15,7 +15,7 @@ export class OrderDetail implements OnInit {
   private ordersService = inject(OrdersService);
 
   order = signal<Order | null>(null);
-
+  errorMessage = signal<string | null>(null);
   async ngOnInit() {
     try {
       const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -32,6 +32,13 @@ export class OrderDetail implements OnInit {
       this.order.set(mappedOrder);
 
     } catch (error: any) {
+
+      if (error.status === 403) {
+        this.errorMessage.set('No tienes permiso para ver este pedido.');
+      } else {
+        this.errorMessage.set('No se pudo cargar el pedido.');
+      }
+
       console.error(error);
     }
   }
