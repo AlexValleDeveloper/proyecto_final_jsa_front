@@ -2,8 +2,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
-import { RecipesService } from '../services/recipes.service';
-import { Recipe } from '../interfaces/recipe';
+import { RecipesService } from '../../services/recipes.service';
+import { Recipe } from '../../interfaces/recipe';
 
 @Component({
   selector: 'app-recipe-detail',

@@ -29,10 +29,10 @@ export const routes: Routes = [
   //   path: 'community/:id',
   //   loadComponent: () => import('./pages/community/community').then((m) => m.Community),
   // },
-  // {
-  //   path: 'recipes/:id',
-  //   loadComponent: () => import('./pages/recipe-detail/recipe-detail').then((m) => m.RecipeDetail),
-  // },
+   {
+    path: 'recipes/:id',
+    loadComponent: () => import('./pages/recipe-detail/recipe-detail').then((m) => m.RecipeDetail),
+  },
 
   // ==== RUTAS PRIVADAS — USUARIO ====
   // Lazy loading + authGuard — solo accesibles con token válido
