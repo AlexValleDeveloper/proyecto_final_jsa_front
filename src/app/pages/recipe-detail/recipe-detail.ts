@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -47,3 +48,14 @@ export class RecipeDetail implements OnInit {
     }
   }
 }
+=======
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-recipe-detail',
+  imports: [],
+  templateUrl: './recipe-detail.html',
+  styleUrl: './recipe-detail.css',
+})
+export class RecipeDetail {}
+>>>>>>> sara/pages-orders
